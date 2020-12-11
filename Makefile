@@ -1,4 +1,5 @@
 PREFIX ?= /usr/local
+SCRIPT ?= /opt
 CC ?= cc
 
 output: dwmblocks.c blocks.def.h blocks.h
@@ -10,7 +11,10 @@ blocks.h:
 clean:
 	rm -f *.o *.gch dwmblocks
 install: output
+	mkdir -p $(SCRIPT)/dwmblocks
+	cp -r scripts/* $(SCRIPT)/dwmblocks 
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	install -m 0755 dwmblocks $(DESTDIR)$(PREFIX)/bin/dwmblocks
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/dwmblocks
+	rm -drf $(SCRIPT)/dwmblocks
